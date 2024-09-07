@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+html,
+body {
+  height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  --scrollbar-width: 2px;
+  ::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #007adf;
+  outline: 1px solid #2c93e7;
+}
+
+
+}
+
+/* 
+R (0)
+G (110)
+B (255 */
+
+@layer base {
+  :root {
+    --background: 216 100% 98.04%;
+    --foreground: 213.6 100% 4.9%;
+
+    --primary: 214.12 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --card: 216 100% 98.04%;
+    --card-foreground: 213.6 100% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213.6 100% 4.9%;
+
+    --secondary: 214.74 100% 92.55%;
+    --secondary-foreground: 216 100% 0.98%;
+
+    --muted: 213.6 100% 95.1%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 213.6 100% 95.1%;
+    --accent-foreground: 214.12 100% 50%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 90.2%;
+    --input: 0 0% 90.2%;
+    --ring: 214.12 100% 50%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: linear-gradient(to top left, #007adf, #00ecbc);
+
+    --background: 220 65% 3.52%;
+    --foreground: 220 10% 97.2%;
+
+    --muted: 220 50% 13.2%;
+    --muted-foreground: 220 10% 54.4%;
+
+    --popover: 220 45% 5.72%;
+    --popover-foreground: 220 10% 97.2%;
+
+    --card: 220 45% 5.72%;
+    --card-foreground: 220 10% 97.2%;
+
+    --border: 220 50% 13.2%;
+    --input: 220 50% 13.2%;
+
+    --primary: 220 100% 44%;
+    --primary-foreground: 220 10% 97.2%;
+
+    --secondary: 220 50% 13.2%;
+    --secondary-foreground: 220 10% 97.2%;
+
+    --accent: 220 50% 13.2%;
+    --accent-foreground: 220 10% 97.2%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 220 10% 97.2%;
+
+    --ring: 220 100% 44%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.dotPattern {
+  background-image: radial-gradient(rgb(35, 40, 68) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.use-automation-zoom-in {
+  animation: automation-zoom-in 0.5s;
+}
+
+@keyframes automation-zoom-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.message.user {
+  align-self: flex-end;
+  background-color: #bdc2ce;
+  color: #000;
+}
+
+.message.user p {
+  color: #000;
+}
+
+.message.ai {
+  align-self: flex-start;
+  background-color: #333;
+  color: #fff;
+}
+
+.message.ai p {
+  color: #fff;
+}
+
+.time {
+  font-size: 12px;
+  color: #fff;
+}
+
+.time.user {
+  color: #000;
+}
+
+.input-box {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Updated styles for dark mode and full screen */
+
+/* Dark Mode */
+
+
+.chat-window {
+  width: 100%;
+  height: 37vh;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #020617;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  
+}
+
+.message {
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #616060;
+}
+
+/* Light Mode */
+
+/* Full Screen */
+.full-screen .chat-window {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+}
+
+/* Additional styles for header */
+.header {
+  text-align: center;
+  /* background-color: #333; */
+  color: #fff;
+  padding: 20px;
+  padding-top: 5px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+#chat-header {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.message-text {
+  color: #fff;
+}
