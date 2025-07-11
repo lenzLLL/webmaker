@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
   try {
     const res: any = await replicate.run(
-      "prompthero/openjourney:ad59ca21177f9e217b9075e7300cf6e14f7e5b4505b87b9689dbd866e9768969",
+      "anthropic/claude-3.7-sonnet",
       {
         input: {
           prompt,
