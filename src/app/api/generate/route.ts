@@ -16,7 +16,8 @@ export async function POST(req: Request) {
     );
 
     const imageUrl = res.join("");
-
+   console.log(res)
+    console.log(imageUrl)
     // await connectToDB();
 
     // const imageDoc = await ImageModel.create({ imageUrl, prompt });
