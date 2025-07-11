@@ -9,7 +9,7 @@ export default authMiddleware({
   async beforeAuth(auth, req) {},
   async afterAuth(auth, req) {
     //rewrite for domains
-    const url = req.nextUrl
+    const url = req.nextUrl 
     const searchParams = url.searchParams.toString()
     let hostname = req.headers
 
