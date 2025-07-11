@@ -7,9 +7,10 @@ export async function POST(req: Request) {
 
   try {
     const res: any = await replicate.run(
-      "ideogram-ai/ideogram-v3-balanced",
+      "recraft-ai/recraft-v3",
       {
         input: {
+           size: "1365x1024",
           prompt,
         },
       }
