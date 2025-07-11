@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
   try {
     const res: any = await replicate.run(
-      "anthropic/claude-3.7-sonnet",
+      "ideogram-ai/ideogram-v3-balanced",
       {
         input: {
           prompt,
