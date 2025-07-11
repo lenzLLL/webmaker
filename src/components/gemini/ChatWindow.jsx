@@ -8,7 +8,7 @@ import InputBox from "./InputBox";
 
 const API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI('AIzaSyCNrsmI_WDSh7x4lWpo13iJsiUf236nM4o');
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
 const Header = () => {
   return (
