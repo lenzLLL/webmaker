@@ -1,22 +1,22 @@
-import { NextResponse } from "next/server"
-import { openai } from "@/lib/openai"
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function POST(req: Request) {
-  const { prompt } = await req.json()
-  if (!prompt) return NextResponse.json({ error: "Prompt requis" }, { status: 400 })
+  const { prompt } = await req.json();
+  if (!prompt) return NextResponse.json({ error: "Prompt manquant" }, { status: 400 });
 
   try {
-    const resp = await openai.createImage({
-      model: "gpt-image-1",   // ou "dall-e-3" selon disponibilité
+    const resp = await openai.images.generate({ // ou openai.images.create dépend de la version
       prompt,
       n: 1,
-      size: "1024x1024",     // ou "512x512", "256x256" :contentReference[oaicite:9]{index=9}
-    })
-
-    const url = resp.data.data[0].url
-    return NextResponse.json({ url })
-  } catch (e: any) {
-    console.error(e)
-    return NextResponse.json({ error: "Échec génération" }, { status: 500 })
+      size: "1024x1024",
+    });
+    const url = resp.data[0].url;
+    return NextResponse.json({ url });
+  } catch (err: any) {
+    console.error(err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
