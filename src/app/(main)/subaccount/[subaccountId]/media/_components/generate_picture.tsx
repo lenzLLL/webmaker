@@ -73,20 +73,51 @@ export const ImageGenerator = ({subaccountId}:Props) => {
       })
     }
   }
+  // const handleGenerateImage = async () => {
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await axios.post("/api/generate", { prompt });
+  //     setImage(response.data.url)
+  //     localStorage.setItem("generated-image",JSON.stringify(response.data.url))
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setPrompt("");
+  //     setLoading(false);
+  //   }
+  // };
   const handleGenerateImage = async () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("/api/generate", { prompt });
-      setImage(response.data.url)
-      localStorage.setItem("generated-image",JSON.stringify(response.data.url))
-    } catch (error) {
-      console.error(error);
+      const response = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          prompt,
+          n: 1,
+          size: '512x512',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) throw new Error(data.error.message);
+
+    
+            setImage(data?.data[0]?.url)
+      localStorage.setItem("generated-image",JSON.stringify(data?.data[0]?.url))
+    } catch (err: any) {
+      setError(err.message || 'Une erreur est survenue');
     } finally {
-      setPrompt("");
-      setLoading(false);
+     setLoading(false);
     }
   };
+
 
   return (
     <AlertDialog>
