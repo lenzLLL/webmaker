@@ -9,7 +9,7 @@ const nextConfig = {
             'files.stripe.com',
             'replicate.delivery'
         ],
-        remotePatterns:[{hostname:"res.cloudinary.com"}]
+        remotePatterns:[{hostname:"res.cloudinary.com"}, { protocol: "https", hostname: "oaipublic.azureedge.net", pathname: "/**" }]
     },
     reactStrictMode:false
 };
