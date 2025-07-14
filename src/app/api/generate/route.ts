@@ -13,7 +13,11 @@ export async function POST(req: Request) {
       n: 1,
       size: "1024x1024",
     });
-    const url = resp.data[0].url;
+    
+   const url = resp.data?.[0]?.url;
+if (!url) {
+  return NextResponse.json({ error: "Aucune image générée" }, { status: 500 });
+}
     return NextResponse.json({ url });
   } catch (err: any) {
     console.error(err);
