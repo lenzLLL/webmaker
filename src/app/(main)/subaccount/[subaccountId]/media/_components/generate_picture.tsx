@@ -95,7 +95,7 @@ export const ImageGenerator = ({subaccountId}:Props) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          Authorization: `Bearer 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`,
         },
         body: JSON.stringify({
           prompt,
