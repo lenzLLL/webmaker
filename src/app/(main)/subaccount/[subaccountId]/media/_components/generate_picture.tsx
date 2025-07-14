@@ -73,50 +73,37 @@ export const ImageGenerator = ({subaccountId}:Props) => {
       })
     }
   }
-  // const handleGenerateImage = async () => {
-  //   setLoading(true);
+   const handleGenerateImage = async () => {
+     setLoading(true);
 
-  //   try {
-  //     const response = await axios.post("/api/generate", { prompt });
-  //     setImage(response.data.url)
-  //     localStorage.setItem("generated-image",JSON.stringify(response.data.url))
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setPrompt("");
-  //     setLoading(false);
-  //   }
-  // };
-  const handleGenerateImage = async () => {
-    setLoading(true);
-
-    try {
-      const response = await fetch('https://api.openai.com/v1/images/generations', {
+     try {
+       const response = await fetch("/api/generate",{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer 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`,
+   
         },
         body: JSON.stringify({
           prompt,
-          n: 1,
-          size: '512x512',
+   
         }),
       });
+        const data = await response.json();
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error?.message || 'Erreur inconnue');
+      }
 
-      if (data.error) throw new Error(data.error.message);
+       // setImage(response.data.url)
+       // localStorage.setItem("generated-image",JSON.stringify(response.data.url))
+     } catch (error) {
+       console.error(error);
+     } finally {
+       setPrompt("");
+       setLoading(false);
+     }
+   };
 
-    
-            setImage(data?.data[0]?.url)
-      localStorage.setItem("generated-image",JSON.stringify(data?.data[0]?.url))
-    } catch (err: any) {
-     console.log(err)
-    } finally {
-     setLoading(false);
-    }
-  };
 
 
   return (
