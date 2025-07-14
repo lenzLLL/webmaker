@@ -112,7 +112,7 @@ export const ImageGenerator = ({subaccountId}:Props) => {
             setImage(data?.data[0]?.url)
       localStorage.setItem("generated-image",JSON.stringify(data?.data[0]?.url))
     } catch (err: any) {
-      setError(err.message || 'Une erreur est survenue');
+     
     } finally {
      setLoading(false);
     }
