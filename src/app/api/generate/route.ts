@@ -1,44 +1,22 @@
-import { replicate } from "@/components/replica";
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server"
+import { openai } from "@/lib/openai"
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const prompt = body.prompt;
-const input = {
-    width: 1024,
-    height: 1024,
-    prompt
-};
+  const { prompt } = await req.json()
+  if (!prompt) return NextResponse.json({ error: "Prompt requis" }, { status: 400 })
+
   try {
-    const output:any = await replicate.run("black-forest-labs/flux-pro", { input });
+    const resp = await openai.createImage({
+      model: "gpt-image-1",   // ou "dall-e-3" selon disponibilité
+      prompt,
+      n: 1,
+      size: "1024x1024",     // ou "512x512", "256x256" :contentReference[oaicite:9]{index=9}
+    })
 
-    const imageUrl = output.join("");
-   console.log(output)
-    console.log(imageUrl)
-    // await connectToDB();
-
-    // const imageDoc = await ImageModel.create({ imageUrl, prompt });
-
-    // if (!imageUrl) {
-    //   return NextResponse.json(
-    //     { error: "Failed to save image" },
-    //     { status: 500 }
-    //   );
-    // }
-
-    return NextResponse.json(
-      { message: "Image generated successfully",url:imageUrl },
-      { status: 200 }
-    );
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const url = resp.data.data[0].url
+    return NextResponse.json({ url })
+  } catch (e: any) {
+    console.error(e)
+    return NextResponse.json({ error: "Échec génération" }, { status: 500 })
   }
 }
-
-// export async function GET() {
-//   await connectToDB();
-
-//   const images = await ImageModel.find().sort({ createdAt: -1 }).limit(10);
-
-//   return NextResponse.json({ images }, { status: 200 });
-// }
