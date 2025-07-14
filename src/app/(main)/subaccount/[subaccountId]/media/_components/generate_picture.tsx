@@ -74,34 +74,19 @@ export const ImageGenerator = ({subaccountId}:Props) => {
     }
   }
   const handleGenerateImage = async () => {
-  setLoading(true);
-  try {
-    const response = await fetch("/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt }),
-    });
+    setLoading(true);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error?.message || "Erreur inconnue");
+    try {
+      const response = await axios.post("/api/generate", { prompt });
+      setImage(response.data.url)
+      localStorage.setItem("generated-image",JSON.stringify(response.data.url))
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setPrompt("");
+      setLoading(false);
     }
-
-    // ✅ ici : data.url (pas response.data.url)
-    setImage(data.url);
-    localStorage.setItem("generated-image", JSON.stringify(data.url));
-  } catch (error) {
-    console.error("Erreur lors de la génération :", error);
-  } finally {
-    setPrompt("");
-    setLoading(false);
-  }
-};
-
-
+  };
 
   return (
     <AlertDialog>
